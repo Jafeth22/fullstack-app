@@ -1,0 +1,14 @@
+version: '3.5'
+
+services:
+  front-end-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: front-end-app
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./:/usr/src/app # Copy files into the container
+      - /usr/src/app/node_modules # Anonymous volumn, 
+      # to avoid issues of compativility of dependencies

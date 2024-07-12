@@ -1,0 +1,44 @@
+services:
+  # name of the service, this is how it will be shown on docker image section
+  back-end-server-api:
+    build:
+      # It is specifying the path where to work and which Dockerfile we are going to use
+      context: .
+      dockerfile: Dockerfile
+    container_name: back-end-server-api
+    ports:
+      - '3001:3001'
+    environment:
+      # Declaring env variables
+      SERVER_PORT: ${SERVER_PORT}
+      NODE_ENV: development
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+    volumes:
+      - ./src:/usr/src/app/src
+      # Here, we used the same path of Dockerfile
+      # /usr/src/app = Paht
+      # .../src/ = Where will be located inside
+    depends_on:
+      - postgres_db
+
+  postgres_db:
+    image: postgres:13.13
+    container_name: postgres_db_practice
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      # Values come from .env file
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    volumes:
+      - postgres_db_practice_data:/var/lib/postgresql/data
+
+# Let Docker knows that this volume should be keeped
+volumes:
+  postgres_db_practice:

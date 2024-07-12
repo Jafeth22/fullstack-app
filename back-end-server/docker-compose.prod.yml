@@ -1,0 +1,16 @@
+services:
+  # name of the service
+  back-end-server-api-prod:
+    build: # It is specifying the path where to work and which Dockerfile we are going to use
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - '3001:3001'
+    environment: # Declaring env variables
+      - PORT=3001
+      - NODE_ENV=production
+    volumes:
+      - ./src:/usr/src/app/src
+      # Here, we used the same path of Dockerfile
+      # /usr/src/app = Paht
+      # .../src/ = Where will be located inside 
