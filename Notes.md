@@ -13,7 +13,7 @@ docker run [-p portMachine:porDocker] dockerImageName
 
 # Docker-Compose
 To define all services, APIs, to group all services to run under a single container
-Build from `docker-compuse` file, **you should be in the same directory**
+Build from `docker-compose` file, **you should be in the same directory**
 ```
 docker-compose [-f dockerCompuseFileName.yml] up --build [-d]
 ```

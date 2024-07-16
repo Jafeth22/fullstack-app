@@ -3,7 +3,9 @@ import { AppController } from './modules/app.controller';
 import { AppService } from './modules/app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { UsersModule } from './users/users.module';
+import { CitiesModule } from './modules/cities/cities.module';
+import { UsersModule } from './modules/users/users.module';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -19,10 +21,11 @@ import { UsersModule } from './users/users.module';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [],
-      synchronize: true,
+      entities: [join(process.cwd()), 'dist/**/*.entity.js'],
+      synchronize: true, // Should be FALSE in PROD
       autoLoadEntities: true,
     }),
+    CitiesModule,
     UsersModule,
   ],
   controllers: [AppController],

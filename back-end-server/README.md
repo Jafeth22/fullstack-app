@@ -15,7 +15,8 @@ The `.env` file only contains values that are for testing, for this project
 # Using command-line to crear files
 This `[large opc]/[short opc]` means that two options to create a file, but at the end use only one at time,
 all commands are executed within `src` folder
- - `nest [generate module]/[g mo] folderName/moduleName`: Create the module
+ - **`nest g res nameModule`**: This will create all files
+ - `nest [generate module]/[g mo] moduleName`: Create the module
  - `nest [generate controller]/[g co] contName`: Create the controller
  - `nest [generate service]/[g s] servName`: Create a service
  - `nest [generate class]/[g cl] entityName`: Create empty class 
@@ -36,6 +37,6 @@ all commands are executed within `src` folder
  # Componentes of a Module
 
 - `imports`: Import neccesary modules to create the current
-- `controllers`: Define the controllers that belong to the current, these manage HTTP requests
-- `providers`: Define the services or other providers that should be instantiated by the dependency inyector and available in the current module. Servicios u otros proveedores que deben ser instanciados por el inyector de dependencias y pueden ser compartidos en toda la aplicación.
-- `exports`: Proveedores que deben estar disponibles en otros módulos que importan este módulo.
+- `controllers`: Manage HTTPS requests and logic of the app, they define routes and methods for handling requests, and can access services to perform specific operations.
+- `providers`: They are components that can be inyected in other components. It can be services, helpers, or some other reutilizable component. The decorator `@Injectable()` indicates that a class is a **provider**, making posible the dependency inyection in other components.
+- `exports`: Providers that should be enaibles to other modules

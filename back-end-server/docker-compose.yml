@@ -41,4 +41,4 @@ services:
 
 # Let Docker knows that this volume should be keeped
 volumes:
-  postgres_db_practice:
+  postgres_db_practice_data:
