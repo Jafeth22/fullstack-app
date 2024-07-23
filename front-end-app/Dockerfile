@@ -1,6 +1,6 @@
 FROM node:21
 
-# Estables the directory inside the container
+# Establish the directory inside the container
 WORKDIR /usr/src/app
 
 # Copy this files before others

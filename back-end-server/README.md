@@ -12,7 +12,9 @@ The `.env` file only contains values that are for testing, for this project
 - typeORM@0.3.20
 - PostgresSQL@8.12.0
 
-# Using command-line to crear files
+# BE Project Notes
+
+## Using command-line to crear files
 This `[large opc]/[short opc]` means that two options to create a file, but at the end use only one at time,
 all commands are executed within `src` folder
  - **`nest g res nameModule`**: This will create all files
@@ -34,7 +36,7 @@ all commands are executed within `src` folder
 
  ```
 
- # Componentes of a Module
+## Componentes of a Module
 
 - `imports`: Import neccesary modules to create the current
 - `controllers`: Manage HTTPS requests and logic of the app, they define routes and methods for handling requests, and can access services to perform specific operations.

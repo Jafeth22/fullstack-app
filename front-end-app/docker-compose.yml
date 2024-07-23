@@ -9,6 +9,9 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - ./:/usr/src/app # Copy files into the container
+      - .:/usr/src/app # Copy files into the container
       - /usr/src/app/node_modules # Anonymous volumn, 
       # to avoid issues of compativility of dependencies
+    command: sh -c "npm install && npm run build && npm run dev"
+    # This line is in case it does not work correctly, sometimes the node_modules
+    # does not correctly, this line will help to work as expected
