@@ -8,6 +8,8 @@ services:
     container_name: front-end-app
     ports:
       - '3000:3000'
+    env_file:
+      - .env
     volumes:
       - .:/usr/src/app # Copy files into the container
       - /usr/src/app/node_modules # Anonymous volumn, 
