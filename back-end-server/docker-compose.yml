@@ -8,15 +8,8 @@ services:
     container_name: back-end-server-api
     ports:
       - '3001:3001'
-    environment:
-      # Declaring env variables
-      SERVER_PORT: ${SERVER_PORT}
-      NODE_ENV: development
-      DATABASE_HOST: ${DATABASE_HOST}
-      DATABASE_PORT: ${DATABASE_PORT}
-      DATABASE_USER: ${DATABASE_USER}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      DATABASE_NAME: ${DATABASE_NAME}
+    env_file:
+      - .env # To use variables from this file
     volumes:
       - ./src:/usr/src/app/src
       # Here, we used the same path of Dockerfile
