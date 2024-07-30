@@ -7,28 +7,16 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import { RefreshCw } from "lucide-react";
 import CreateCity from "./createCity";
-
-type CitiesProps = {
-    name: string;
-    description: string;
-    active: boolean;
-}
+import { City } from "@/lib/models";
+import { CityServices } from "@/services";
 
 const Cities = () => {
-    const [citiesValues, setCitiesValues] = useState<CitiesProps[]>([]);
+    const [citiesValues, setCitiesValues] = useState<City[]>([]);
 
     const getCities = async () => {
-        const domainURL = process.env.NEXT_PUBLIC_DOMAIN_URL_BE;
-        const response = await fetch(`${domainURL}/cities`, {
-            method: 'GET',
-        });
-
-        if (!response.ok) {
-            throw new Error(`Error: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        setCitiesValues(data);
+        const cityService = new CityServices();
+        const allCities = await cityService.getAllCities();
+        setCitiesValues(allCities);
     }
 
     return (

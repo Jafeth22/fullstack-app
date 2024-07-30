@@ -15,6 +15,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from '@/components/ui/checkbox';
 import { useState } from "react";
+import { CityServices } from "@/services";
+import { City } from "@/lib/models";
 
 const CreateCity = () => {
     const [cityName, setCityName] = useState<string>('');
@@ -39,18 +41,13 @@ const CreateCity = () => {
     const closeDialog = () => setIDialogOpen(false);
 
     const saveCity = async () => {
-        const domainURL = process.env.NEXT_PUBLIC_DOMAIN_URL_BE;
-        await fetch(`${domainURL}/cities`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name: cityName,
-                description: descriptionCity,
-                active: activeCity
-            }),
-        });
+        const cityService = new CityServices();
+        const newCity: City = {
+            name: cityName,
+            description: descriptionCity,
+            active: activeCity
+        }
+        await cityService.save(newCity);
 
         closeDialog();
     }
