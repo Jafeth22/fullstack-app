@@ -17,6 +17,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { useState } from "react";
 import { CityServices } from "@/services";
 import { City } from "@/lib/models";
+import { Plus } from "lucide-react";
 
 const CreateCity = () => {
     const [cityName, setCityName] = useState<string>('');
@@ -55,7 +56,9 @@ const CreateCity = () => {
     return (
         <Dialog open={isDialogOpen} onOpenChange={setIDialogOpen}>
             <DialogTrigger asChild>
-                <Button onClick={openDialog} variant="outline">Add City</Button>
+                <Button onClick={openDialog} variant="outline">
+                    <Plus className="mr-2 h-6 w-6" /> Add City
+                </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
@@ -78,11 +81,11 @@ const CreateCity = () => {
                         />
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="username" className="text-right">
+                        <Label htmlFor="description" className="text-right">
                             Description
                         </Label>
                         <Input
-                            id="username"
+                            id="description"
                             placeholder="Description of the city"
                             className="col-span-3"
                             value={descriptionCity}
@@ -90,10 +93,10 @@ const CreateCity = () => {
                         />
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="username" className="text-right">
+                        <Label htmlFor="activeCity" className="text-right">
                             Active
                         </Label>
-                        <Checkbox checked={activeCity} onCheckedChange={handleActiveCity} />
+                        <Checkbox id="activeCity" checked={activeCity} onCheckedChange={handleActiveCity} />
                     </div>
                 </form>
                 <DialogFooter>

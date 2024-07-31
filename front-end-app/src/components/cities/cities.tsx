@@ -5,19 +5,24 @@ import { ModeToggle } from "@/components/ui/toggleDarkMode";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
-import { RefreshCw } from "lucide-react";
+import { Pencil, RefreshCw, Trash2 } from "lucide-react";
 import CreateCity from "./createCity";
 import { City } from "@/lib/models";
 import { CityServices } from "@/services";
 
 const Cities = () => {
     const [citiesValues, setCitiesValues] = useState<City[]>([]);
+    const cityService = new CityServices();
 
     const getCities = async () => {
-        const cityService = new CityServices();
         const allCities = await cityService.getAllCities();
         setCitiesValues(allCities);
     }
+
+    const handleDelete = async (cityId: string) => {
+        await cityService.delete(cityId);
+        await getCities();
+    };
 
     return (
         <div>
@@ -42,21 +47,21 @@ const Cities = () => {
                 </TableHeader>
                 <TableBody>
                     {citiesValues.length > 0 ?
-                        citiesValues.map((citie, index) => (
+                        citiesValues.map((city, index) => (
                             <TableRow key={index} >
                                 <TableCell className="font-medium">{index + 1}</TableCell>
-                                <TableCell>{citie.name}</TableCell>
-                                <TableCell>{citie.description}</TableCell>
+                                <TableCell>{city.name}</TableCell>
+                                <TableCell>{city.description}</TableCell>
                                 <TableCell>
-                                    <Checkbox checked={citie.active} disabled />
+                                    <Checkbox checked={city.active} disabled />
                                 </TableCell>
                                 <TableCell>
                                     <div className="flex items-center gap-2">
                                         <Button variant="outline" size="sm">
-                                            Edit
+                                            <Pencil className="mr-2 h-4 w-4" /> Edit
                                         </Button>
-                                        <Button variant="destructive" size="sm">
-                                            Delete
+                                        <Button onClick={() => handleDelete(city.id)} variant="destructive" size="sm">
+                                            <Trash2 className="mr-2 h-4 w-4" /> Delete
                                         </Button>
                                     </div>
                                 </TableCell>
