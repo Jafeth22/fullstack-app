@@ -18,7 +18,11 @@ export class CitiesService {
   }
 
   async findAll() {
-    return await this.citiesRepository.find();
+    return await this.citiesRepository.find({
+      order: {
+        ['name']: 'ASC',
+      },
+    });
   }
 
   async findOne(id: number) {
@@ -28,7 +32,7 @@ export class CitiesService {
   async update(id: number, updateCityDto: UpdateCityDto) {
     const city = await this.findOne(id);
     if (!city) {
-      throw new NotFoundException(`La ciudad con el ${id} no se encontró`);
+      throw new NotFoundException(`The city with id: ${id} did not found.`);
     }
 
     // Merge the updated properties into the existing city object
