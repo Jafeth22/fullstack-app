@@ -1,18 +1,18 @@
-import { City } from "@/lib/models";
 import { FC, useState } from "react";
+import { CityServices } from "@services";
+import { City } from "@models";
 import {
+  Button,
+  Checkbox,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
-import { CityServices } from "@/services";
+  Input,
+  Label,
+} from "@ui";
 
 interface UpdateCityProps {
   cityData: City;

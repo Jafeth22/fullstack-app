@@ -1,6 +1,15 @@
 "use client";
 
+import { useState } from "react";
+import { Pencil, Plus, RefreshCw, Trash2 } from "lucide-react";
+import CreateCity from "./createCity";
+import UpdateCity from "./updatecity";
+import { City } from "@models";
+import { Checkbox } from "@radix-ui/react-checkbox";
+import { CityServices } from "@/services";
 import {
+  Button,
+  ModeToggle,
   Table,
   TableBody,
   TableCaption,
@@ -8,16 +17,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { ModeToggle } from "@/components/ui/toggleDarkMode";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { useState } from "react";
-import { Pencil, Plus, RefreshCw, Trash2 } from "lucide-react";
-import CreateCity from "./createCity";
-import { City } from "@/lib/models";
-import { CityServices } from "@/services";
-import UpdateCity from "./updatecity";
+} from "@ui";
 
 const Cities = () => {
   const [citiesValues, setCitiesValues] = useState<City[]>([]);

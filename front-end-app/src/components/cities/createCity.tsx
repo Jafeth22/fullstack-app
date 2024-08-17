@@ -1,7 +1,9 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { FC, useState } from "react";
 import {
+  Checkbox,
+  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -9,13 +11,11 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
-import { FC, useState } from "react";
-import { CityServices } from "@/services";
+  Input,
+  Label,
+} from "@ui";
 import { City } from "@/lib/models";
+import { CityServices } from "@services";
 
 interface CreateCityProps {
   isDialogOpen: boolean;
