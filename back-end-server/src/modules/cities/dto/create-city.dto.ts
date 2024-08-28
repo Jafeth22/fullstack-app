@@ -1,5 +1,18 @@
+import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
+
 export class CreateCityDto {
-    name: string;
-    description: string;
-    active: boolean;
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  description: string;
+
+  @IsString()
+  @IsNotEmpty()
+  active: boolean;
+
+  @IsOptional()
+  user_id?: number;
 }

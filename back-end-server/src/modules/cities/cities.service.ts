@@ -19,6 +19,7 @@ export class CitiesService {
 
   async findAll() {
     return await this.citiesRepository.find({
+      // relations: ['users'], // This will let me see the information of the relation
       order: {
         ['name']: 'ASC',
       },
@@ -44,7 +45,7 @@ export class CitiesService {
   async remove(id: number) {
     const city = await this.findOne(id);
     if (!city) {
-      throw new NotFoundException(`La ciudad con el ${id} no se encontró`);
+      throw new NotFoundException(`The city with id: ${id} did not found.`);
     }
     return await this.citiesRepository.remove(city);
   }

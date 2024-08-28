@@ -32,7 +32,10 @@ export class CitiesController {
   }
 
   @Patch(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() updateCityDto: UpdateCityDto) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateCityDto: UpdateCityDto,
+  ) {
     return this.citiesService.update(id, updateCityDto);
   }
 
