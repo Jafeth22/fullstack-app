@@ -8,7 +8,6 @@ import { City } from "@models";
 import { CityServices } from "@services";
 import {
   Button,
-  ModeToggle,
   Table,
   TableBody,
   TableCaption,
@@ -64,9 +63,8 @@ const Cities = () => {
 
   return (
     <div>
-      <h1>Here, you will see all the information of the current Cities</h1>
-      <div className="flex justify-start gap-5">
-        <ModeToggle />
+      <div className="flex justify-start justify-between items-center gap-5">
+        <h1>Here, you will see all the information of the current Cities</h1>
         <Button onClick={() => toggleCreateDialog(true)} variant="outline">
           <Plus className="mr-2 h-6 w-6" /> Add City
         </Button>

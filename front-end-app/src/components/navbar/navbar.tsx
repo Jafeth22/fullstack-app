@@ -2,6 +2,7 @@
 
 import { FC } from "react";
 import {
+  ModeToggle,
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
@@ -17,7 +18,7 @@ const Navbar: FC = () => {
   ];
 
   return (
-    <div className="backgroundNavBar">
+    <div className="backgroundNavBar bg-gradient-to-b from-cyan-500 dark:from-purple-500 to-background">
       <NavigationMenu>
         <NavigationMenuList>
           {menuItems.map((item) => (
@@ -32,6 +33,7 @@ const Navbar: FC = () => {
           ))}
         </NavigationMenuList>
       </NavigationMenu>
+      <ModeToggle />
     </div>
   );
 };

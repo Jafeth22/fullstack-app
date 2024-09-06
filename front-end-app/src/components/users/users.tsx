@@ -25,13 +25,12 @@ const Users: FC = () => {
 
     return (
         <div>
-            <h1>Here, you will see all the information of the current Users</h1>
-            <Button onClick={() => createNewUser()} variant="outline">
-                <Plus className="mr-2 h-6 w-6" /> Add User
-            </Button>
-            <Button variant="default" onClick={() => getAllUsers()}>
-                <RefreshCw className="mr-2 h-4 w-4" /> Refresh
-            </Button>
+            <div className="flex justify-start justify-between items-center gap-5">
+                <h1>Here, you will see all the information of the current Users</h1>
+                <Button onClick={() => createNewUser()} variant="outline">
+                    <Plus className="mr-2 h-6 w-6" /> Add User
+                </Button>
+            </div>
             <Table>
                 <TableCaption>List of Users</TableCaption>
                 <TableHeader>

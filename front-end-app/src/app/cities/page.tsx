@@ -4,7 +4,7 @@ import './page.style.css';
 
 const CitiesPage: FC = () => {
     return (
-        <div  className="city-wrapper">
+        <div className="">
             <Cities />
         </div>
     );
