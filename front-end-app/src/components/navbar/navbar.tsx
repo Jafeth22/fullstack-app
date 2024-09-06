@@ -1,3 +1,5 @@
+"use client";
+
 import { FC } from "react";
 import {
   NavigationMenu,
@@ -5,24 +7,29 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@ui";
+import './navbar.css';
 
 const Navbar: FC = () => {
+  const menuItems = [
+    { label: 'Home', urlPath: '/' },
+    { label: 'Cities', urlPath: '/cities' },
+    { label: 'Users', urlPath: '/users' },
+  ];
+
   return (
-    <div>
+    <div className="backgroundNavBar">
       <NavigationMenu>
         <NavigationMenuList>
-          <NavigationMenuItem>
-            <NavigationMenuLink
-              href="#item1"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Item 1
-            </NavigationMenuLink>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <NavigationMenuLink href="#item2">Item 2</NavigationMenuLink>
-          </NavigationMenuItem>
+          {menuItems.map((item) => (
+            <NavigationMenuItem key={item.label}>
+              <NavigationMenuLink
+                href={item.urlPath}
+                className="NavigationMenuLink"
+              >
+                {item.label}
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          ))}
         </NavigationMenuList>
       </NavigationMenu>
     </div>

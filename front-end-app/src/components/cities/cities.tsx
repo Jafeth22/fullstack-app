@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Pencil, Plus, RefreshCw, Trash2 } from "lucide-react";
 import CreateCity from "./createCity";
 import UpdateCity from "./updatecity";
 import { City } from "@models";
-import { Checkbox } from "@radix-ui/react-checkbox";
-import { CityServices } from "@/services";
+import { CityServices } from "@services";
 import {
   Button,
   ModeToggle,
@@ -17,6 +16,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
+  Checkbox,
 } from "@ui";
 
 const Cities = () => {
@@ -26,14 +26,15 @@ const Cities = () => {
   const [isCreateCityDialogOpen, setIsCreateCityDialogOpen] =
     useState<boolean>(false);
   const [selectedCity, setSelectedCity] = useState<City>(null);
-  const cityService = new CityServices();
 
-  const getCities = async () => {
+  const getCities = useCallback(async () => {
+    const cityService = new CityServices();
     const allCities = await cityService.getAllCities();
     setCitiesValues(allCities);
-  };
+  }, []);
 
   const handleDelete = async (cityId: string) => {
+    const cityService = new CityServices();
     await cityService.delete(cityId);
     await getCities();
   };
@@ -56,6 +57,10 @@ const Cities = () => {
     setSelectedCity(city);
     await toggleUpdateDialog(true);
   };
+
+  useEffect(() => {
+    getCities();
+  }, [getCities]);
 
   return (
     <div>
