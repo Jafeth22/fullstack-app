@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional, IsBoolean } from 'class-validator';
 
 export class CreateCityDto {
   @IsString()
@@ -9,7 +9,7 @@ export class CreateCityDto {
   @IsNotEmpty()
   description: string;
 
-  @IsString()
+  @IsBoolean()
   @IsNotEmpty()
   active: boolean;
 

@@ -67,9 +67,6 @@ const Cities = () => {
       <h1>Here, you will see all the information of the current Cities</h1>
       <div className="flex justify-start gap-5">
         <ModeToggle />
-        <Button variant="default" onClick={getCities}>
-          <RefreshCw className="mr-2 h-4 w-4" /> Refresh
-        </Button>
         <Button onClick={() => toggleCreateDialog(true)} variant="outline">
           <Plus className="mr-2 h-6 w-6" /> Add City
         </Button>

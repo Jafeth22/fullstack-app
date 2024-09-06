@@ -1,5 +1,6 @@
+import Users from "@/components/users/users";
 import { FC } from "react";
 
-const UsersPage: FC = () => (<h1>Página de usuarios</h1>);
+const UsersPage: FC = () => (<div> <Users /> </div>);
 
 export default UsersPage;

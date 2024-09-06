@@ -45,11 +45,11 @@ const CreateCity: FC<CreateCityProps> = ({ isDialogOpen, toggleDialog }) => {
 
   const saveCity = async () => {
     const cityService = new CityServices();
-    const newCity: City = {
+    const newCity = new City({
       name: cityName,
       description: descriptionCity,
       active: activeCity,
-    };
+    });
     await cityService.save(newCity);
     closeDialog();
   };
