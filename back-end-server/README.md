@@ -17,7 +17,7 @@ The `.env` file only contains values that are for testing, for this project
 
 # BE Project Notes
 
-## Using command-line to crear files
+## Using command-line to create files
 
 This `[large opc]/[short opc]` means that two options to create a file, but at the end use only one at time,
 all commands are executed within `src` folder
@@ -42,7 +42,7 @@ src/
 
 ```
 
-## Componentes of a Module
+## Components of a Module
 
 - `imports`: Import necessary modules to create the current
   - `[TypeOrmModule.forFeature([entityName])`: Entities that will be manage inside the modulo, it means, the repositories can interact with the DB though the entity.

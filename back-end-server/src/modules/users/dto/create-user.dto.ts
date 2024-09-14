@@ -12,13 +12,13 @@ export class CreateUserDto {
 
   @IsString()
   @IsNotEmpty()
-  last_name: string;
+  lastName: string;
 
   @Type(() => Date) // Change to Date object
   @IsDate() // Valid is Date
-  birth_date: Date;
+  birthDate: Date;
 
   @IsNotEmpty()
   @IsNumber()
-  city_id: number;
+  cityId: number;
 }

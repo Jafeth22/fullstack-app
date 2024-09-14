@@ -16,23 +16,23 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
-    const { birth_date, city_id, last_name, name, username } = createUserDto;
+    const { birthDate, cityId, lastName, name, username } = createUserDto;
     const getCity = await this.cityRepository.findOne({
-      where: { id: city_id },
+      where: { id: cityId },
     });
 
     if (!getCity) {
       throw new NotFoundException(
-        `The city with the ID: ${city_id} was not found`,
+        `The city with the ID: ${cityId} was not found`,
       );
     }
 
     const newUser = this.userRepository.create({
       username,
       name,
-      birth_date,
+      birth_date: birthDate,
       city: getCity,
-      last_name,
+      last_name: lastName,
     });
     return await this.userRepository.save(newUser);
   }
@@ -58,10 +58,10 @@ export class UsersService {
     if (!foundUser) {
       throw new NotFoundException(`The user with the ID: ${id} was not found`);
     }
-    const { username, name, last_name, birth_date, city_id } = updateUserDto;
+    const { username, name, lastName, birthDate, cityId } = updateUserDto;
 
     const city = await this.cityRepository.findOne({
-      where: { id: city_id },
+      where: { id: cityId },
     });
 
     if (!city) {
@@ -74,8 +74,8 @@ export class UsersService {
       id,
       username,
       name,
-      last_name,
-      birth_date,
+      last_name: lastName,
+      birth_date: birthDate,
       city,
     });
   }
