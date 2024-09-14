@@ -8,17 +8,17 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@ui";
-import './navbar.css';
+import "./navbar.css";
 
 const Navbar: FC = () => {
   const menuItems = [
-    { label: 'Home', urlPath: '/' },
-    { label: 'Cities', urlPath: '/cities' },
-    { label: 'Users', urlPath: '/users' },
+    { label: "Home", urlPath: "/" },
+    { label: "Cities", urlPath: "/cities" },
+    { label: "Users", urlPath: "/users" },
   ];
 
   return (
-    <div className="backgroundNavBar bg-gradient-to-b from-cyan-500 dark:from-purple-500 to-background">
+    <div className="backgroundNavBar bg-gradient-to-b from-green-500 dark:from-purple-500 to-background">
       <NavigationMenu>
         <NavigationMenuList>
           {menuItems.map((item) => (

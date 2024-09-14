@@ -10,8 +10,10 @@ export class Users {
     lastName: string;
 
     birthDate: string;
-
-    city: City;
+    
+    cityId: number; // Only to update or create
+    
+    city: City; // To show data
 
     constructor(data: Partial<Users> = {}) {
         Object.assign(this, data);

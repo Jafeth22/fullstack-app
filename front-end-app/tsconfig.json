@@ -23,8 +23,8 @@
       "@ui": ["./src/components/ui"],
       "@services": ["./src/services"], // This away because of the index.js file
       "@models": ["./src/lib/models"],
-      "@components": ["./src/components/*"],
       "@lib/*": ["./src/lib/*"],
+      "@components/*": ["./src/components/*"],
       "@hooks": ["./src/hooks"],
       "@/*": ["./src/*"], // This does not have index.js file
     }
