@@ -12,23 +12,39 @@ import {
   TableRow,
 } from "@ui";
 import { Users as UsersModel } from "@models";
-import { Plus } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import { UsersService } from "@services";
-import CreateUser from "./createUser";
+import CreateUpdateUser from "./createUpdateUser";
 
 const Users: FC = () => {
   const [isUserDialogOpen, setIsUserDialogOpen] = useState<boolean>(false);
   const [users, setUsers] = useState<UsersModel[]>([]);
-
-  const toggleUserDialog = async (isOpen: boolean) => {
-    setIsUserDialogOpen(isOpen);
-  };
 
   const getAllUsers = useCallback(async () => {
     const userService = new UsersService();
     const getUsers = await userService.getAllUsers();
     setUsers(getUsers);
   }, []);
+
+  const toggleUserDialog = useCallback(
+    async (isOpen: boolean) => {
+      setIsUserDialogOpen(isOpen);
+      if (!isOpen) {
+        await getAllUsers();
+      }
+    },
+    [getAllUsers]
+  );
+
+  const deleteUser = useCallback(
+    async (userId) => {
+      const userService = new UsersService();
+      await userService.delete(userId);
+      const listUsers = users.filter((user) => user.id !== userId);
+      setUsers(listUsers);
+    },
+    [users]
+  );
 
   useEffect(() => {
     getAllUsers();
@@ -43,9 +59,9 @@ const Users: FC = () => {
         </Button>
       </div>
       {isUserDialogOpen && (
-        <CreateUser
+        <CreateUpdateUser
           isOpen={isUserDialogOpen}
-          toggleDialog={setIsUserDialogOpen}
+          toggleDialog={toggleUserDialog}
         />
       )}
       <Table>
@@ -57,6 +73,7 @@ const Users: FC = () => {
             <TableHead>Name</TableHead>
             <TableHead>Last name</TableHead>
             <TableHead>City</TableHead>
+            <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -68,6 +85,15 @@ const Users: FC = () => {
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.lastName}</TableCell>
                 <TableCell>{user.city.name}</TableCell>
+                <TableCell>
+                  <Button
+                    onClick={() => deleteUser(user.id)}
+                    variant="destructive"
+                    size="sm"
+                  >
+                    <Trash2 className="mr-2 h-4 w-4" /> Delete
+                  </Button>
+                </TableCell>
               </TableRow>
             ))
           ) : (

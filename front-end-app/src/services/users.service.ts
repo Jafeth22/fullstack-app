@@ -16,12 +16,12 @@ export class UsersService {
     }
 
     async getAllUsers(): Promise<Users[]> {
-        const users = BaseService.getAllOrById(this.COMPLETE_URL);
-        const serializedUsers = (await users).map((user) => new Users({
+        const users = await BaseService.getAllOrById(this.COMPLETE_URL);
+        const serializedUsers = users.map((user) => new Users({
             id: user.id,
             username: user.username,
             name: user.name,
-            lastName: user.last_name,
+            lastName: user.lastName,
             birthDate: user.birthDate,
             city: user.city,
         }));

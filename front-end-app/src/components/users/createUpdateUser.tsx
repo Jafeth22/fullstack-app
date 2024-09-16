@@ -21,15 +21,24 @@ import { format } from "date-fns";
 
 interface CreateUserProps {
   isOpen: boolean;
-  toggleDialog: (isOpen: boolean) => void;
+  toggleDialog: (isOpen: boolean) => Promise<void>;
+  updateUser?: Users;
 }
 
-const CreateUser: FC<CreateUserProps> = ({ isOpen, toggleDialog }) => {
-  const [user, setUser] = useState<Users>();
-  const [birthDate, setBirthDate] = useState<Date>();
+const CreateUpdateUser: FC<CreateUserProps> = ({
+  isOpen,
+  toggleDialog,
+  updateUser = null,
+}) => {
+  const [user, setUser] = useState<Users>(updateUser);
+  const [birthDate, setBirthDate] = useState<Date>(
+    updateUser ? new Date(updateUser.birthDate) : null
+  );
   const [cities, setCities] = useState<City[]>([]);
   const [comboboxValues, setComboboxValues] = useState([]);
-  const [selectedCity, setSelectedCity] = useState<string>("");
+  const [selectedCity, setSelectedCity] = useState<string>(
+    updateUser?.city.id || null
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -39,21 +48,23 @@ const CreateUser: FC<CreateUserProps> = ({ isOpen, toggleDialog }) => {
     }));
   };
 
-  const createNewUser = useCallback(async () => {
+  const createUser = useCallback(async () => {
     const userService = new UsersService();
     const currentCity = cities.find(({ id }) => `${id}` === selectedCity);
     const newUserValues = new Users({
       username: user?.username,
       name: user?.name,
       lastName: user?.lastName,
-      birthDate: format(birthDate, 'yyyy-MM-dd'),
+      birthDate: format(birthDate, "yyyy-MM-dd"),
       cityId: Number(currentCity.id),
     });
-    userService.save(newUserValues);
+    await userService.save(newUserValues);
+    await toggleDialog(false);
   }, [
     birthDate,
     cities,
     selectedCity,
+    toggleDialog,
     user?.lastName,
     user?.name,
     user?.username,
@@ -138,15 +149,15 @@ const CreateUser: FC<CreateUserProps> = ({ isOpen, toggleDialog }) => {
           </div>
         </div>
         <SheetFooter>
-          <SheetClose>
-            <Button type="submit" onClick={createNewUser}>
-              Create user
-            </Button>
-          </SheetClose>
+          {/* <SheetClose> */}
+          <Button type="submit" onClick={createUser}>
+            Create user
+          </Button>
+          {/* </SheetClose> */}
         </SheetFooter>
       </SheetContent>
     </Sheet>
   );
 };
 
-export default CreateUser;
+export default CreateUpdateUser;
