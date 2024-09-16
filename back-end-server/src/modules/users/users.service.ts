@@ -38,11 +38,20 @@ export class UsersService {
   }
 
   async findAll() {
-    const users = await this.userRepository.find({
+    const getUsers = await this.userRepository.find({
       relations: ['city'], // This will let me see the information of the relation
       order: { ['username']: 'ASC' },
     });
-    return users;
+    return getUsers.map(
+      ({ id, name, username, birth_date, city, last_name }) => ({
+        id,
+        name,
+        username,
+        birthDate: birth_date,
+        city,
+        lastName: last_name,
+      }),
+    );
   }
 
   async findOne(id: number) {
