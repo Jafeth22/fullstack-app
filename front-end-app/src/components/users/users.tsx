@@ -12,13 +12,14 @@ import {
   TableRow,
 } from "@ui";
 import { Users as UsersModel } from "@models";
-import { Plus, Trash2 } from "lucide-react";
+import { Pencil, Plus, Trash2 } from "lucide-react";
 import { UsersService } from "@services";
 import CreateUpdateUser from "./createUpdateUser";
 
 const Users: FC = () => {
   const [isUserDialogOpen, setIsUserDialogOpen] = useState<boolean>(false);
   const [users, setUsers] = useState<UsersModel[]>([]);
+  const [selectedUser, setSelectedUser] = useState<UsersModel>(null);
 
   const getAllUsers = useCallback(async () => {
     const userService = new UsersService();
@@ -34,6 +35,19 @@ const Users: FC = () => {
       }
     },
     [getAllUsers]
+  );
+
+  const createNewUser = useCallback(async () => {
+    setSelectedUser(null);
+    toggleUserDialog(true);
+  }, [toggleUserDialog]);
+
+  const updateUser = useCallback(
+    async (currentUser: UsersModel) => {
+      setSelectedUser(currentUser);
+      toggleUserDialog(true);
+    },
+    [toggleUserDialog]
   );
 
   const deleteUser = useCallback(
@@ -54,7 +68,7 @@ const Users: FC = () => {
     <div>
       <div className="flex justify-start justify-between items-center gap-5 mb-2">
         <h1>Here, you will see all the information of the current Users</h1>
-        <Button onClick={() => toggleUserDialog(true)} variant="outline">
+        <Button onClick={createNewUser} variant="outline">
           <Plus className="mr-2 h-6 w-6" /> Add User
         </Button>
       </div>
@@ -62,6 +76,7 @@ const Users: FC = () => {
         <CreateUpdateUser
           isOpen={isUserDialogOpen}
           toggleDialog={toggleUserDialog}
+          updateUser={selectedUser}
         />
       )}
       <Table>
@@ -86,20 +101,29 @@ const Users: FC = () => {
                 <TableCell>{user.lastName}</TableCell>
                 <TableCell>{user.city.name}</TableCell>
                 <TableCell>
-                  <Button
-                    onClick={() => deleteUser(user.id)}
-                    variant="destructive"
-                    size="sm"
-                  >
-                    <Trash2 className="mr-2 h-4 w-4" /> Delete
-                  </Button>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      onClick={() => updateUser(user)}
+                      variant="outline"
+                      size="sm"
+                    >
+                      <Pencil className="mr-2 h-4 w-4" /> Update
+                    </Button>
+                    <Button
+                      onClick={() => deleteUser(user.id)}
+                      variant="destructive"
+                      size="sm"
+                    >
+                      <Trash2 className="mr-2 h-4 w-4" /> Delete
+                    </Button>
+                  </div>
                 </TableCell>
               </TableRow>
             ))
           ) : (
             <TableRow>
               <TableCell
-                colSpan={5}
+                colSpan={6}
                 className="text-center py-8 text-muted-foreground"
               >
                 No users to display

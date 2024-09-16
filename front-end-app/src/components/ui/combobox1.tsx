@@ -34,6 +34,7 @@ interface ComboBoxResponsiveProps {
   inputLabel: string;
 }
 
+// This should be a responsive combobox
 const ComboBoxResponsive: React.FC<ComboBoxResponsiveProps> = ({
   listValue,
   inputLabel,

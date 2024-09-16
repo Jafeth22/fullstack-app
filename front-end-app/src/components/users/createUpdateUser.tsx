@@ -32,12 +32,12 @@ const CreateUpdateUser: FC<CreateUserProps> = ({
 }) => {
   const [user, setUser] = useState<Users>(updateUser);
   const [birthDate, setBirthDate] = useState<Date>(
-    updateUser ? new Date(updateUser.birthDate) : null
+    updateUser ? updateUser.birthDate : null
   );
   const [cities, setCities] = useState<City[]>([]);
   const [comboboxValues, setComboboxValues] = useState([]);
   const [selectedCity, setSelectedCity] = useState<string>(
-    updateUser?.city.id || null
+    updateUser ? `${updateUser.city.id}` : null
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,20 +51,36 @@ const CreateUpdateUser: FC<CreateUserProps> = ({
   const createUser = useCallback(async () => {
     const userService = new UsersService();
     const currentCity = cities.find(({ id }) => `${id}` === selectedCity);
-    const newUserValues = new Users({
-      username: user?.username,
-      name: user?.name,
-      lastName: user?.lastName,
-      birthDate: format(birthDate, "yyyy-MM-dd"),
-      cityId: Number(currentCity.id),
-    });
-    await userService.save(newUserValues);
+    console.log(["birthDate", birthDate, format(birthDate, "yyyy-MM-dd")]);
+    if (updateUser) {
+      const userValues = new Users({
+        id: user?.id,
+        username: user?.username,
+        name: user?.name,
+        lastName: user?.lastName,
+        birthDate: format(birthDate, "yyyy-MM-dd"),
+        cityId: Number(currentCity.id),
+      });
+      await userService.update(userValues);
+    } else {
+      const userValues = new Users({
+        username: user?.username,
+        name: user?.name,
+        lastName: user?.lastName,
+        birthDate: format(birthDate, "yyyy-MM-dd"),
+        cityId: Number(currentCity.id),
+      });
+      await userService.save(userValues);
+    }
+
     await toggleDialog(false);
   }, [
     birthDate,
     cities,
     selectedCity,
     toggleDialog,
+    updateUser,
+    user?.id,
     user?.lastName,
     user?.name,
     user?.username,
@@ -144,16 +160,17 @@ const CreateUpdateUser: FC<CreateUserProps> = ({
             </Label>
             <Combobox
               listValues={comboboxValues}
-              selectedValue={setSelectedCity}
+              setSelectedCity={setSelectedCity}
+              defaultValue={selectedCity}
             />
           </div>
         </div>
         <SheetFooter>
-          {/* <SheetClose> */}
-          <Button type="submit" onClick={createUser}>
-            Create user
-          </Button>
-          {/* </SheetClose> */}
+          <SheetClose>
+            <Button type="submit" onClick={createUser}>
+              {updateUser ? "Update user" : "Create user"}
+            </Button>
+          </SheetClose>
         </SheetFooter>
       </SheetContent>
     </Sheet>

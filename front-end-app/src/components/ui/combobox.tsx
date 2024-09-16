@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -18,6 +17,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { FC } from "react";
+import { useState } from "react";
 
 interface ComboboxValues {
   value: string;
@@ -27,21 +27,23 @@ interface ComboboxValues {
 interface ComboboxProps {
   placeHolder?: string;
   listValues: ComboboxValues[];
-  selectedValue: (currentValue: string) => void;
+  setSelectedCity: (currentValue: string) => void;
+  defaultValue?: string;
 }
 
 const Combobox: FC<ComboboxProps> = ({
   placeHolder = "Select an option",
   listValues,
-  selectedValue,
+  setSelectedCity,
+  defaultValue = "",
 }) => {
-  const [open, setOpen] = React.useState<boolean>(false);
-  const [value, setValue] = React.useState<string>("");
+  const [open, setOpen] = useState<boolean>(false);
+  const [value, setValue] = useState<string>(defaultValue);
 
   const onSelect = (currentValue) => {
     const selected = currentValue === value ? "" : currentValue;
     setValue(selected);
-    selectedValue(selected);
+    setSelectedCity(selected);
     setOpen(false);
   };
 
@@ -62,7 +64,7 @@ const Combobox: FC<ComboboxProps> = ({
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
         <Command>
-          <CommandInput placeholder="Search option..." />
+          <CommandInput placeholder={placeHolder} />
           <CommandList>
             <CommandEmpty>No option found.</CommandEmpty>
             <CommandGroup>
