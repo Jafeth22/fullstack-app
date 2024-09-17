@@ -17,7 +17,7 @@ interface DatePikerProps {
   labelInput: string;
   nameHtml: string;
   date: Date;
-  setDate: Dispatch<SetStateAction<Date>>;
+  setDate: (date: Date) => void;
   placeHolder?: string;
 }
 

@@ -17,7 +17,7 @@ import {
   SheetTitle,
 } from "@ui";
 import { CityServices, UsersService } from "@services";
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 
 interface CreateUserProps {
   isOpen: boolean;
@@ -32,7 +32,7 @@ const CreateUpdateUser: FC<CreateUserProps> = ({
 }) => {
   const [user, setUser] = useState<Users>(updateUser);
   const [birthDate, setBirthDate] = useState<Date>(
-    updateUser ? updateUser.birthDate : null
+    updateUser ? parse(updateUser.birthDate, "yyyy-MM-dd", new Date()) : null
   );
   const [cities, setCities] = useState<City[]>([]);
   const [comboboxValues, setComboboxValues] = useState([]);
@@ -51,7 +51,6 @@ const CreateUpdateUser: FC<CreateUserProps> = ({
   const createUser = useCallback(async () => {
     const userService = new UsersService();
     const currentCity = cities.find(({ id }) => `${id}` === selectedCity);
-    console.log(["birthDate", birthDate, format(birthDate, "yyyy-MM-dd")]);
     if (updateUser) {
       const userValues = new Users({
         id: user?.id,
