@@ -34,7 +34,7 @@ const UpdateCity: FC<UpdateCityProps> = ({
     await toggleDialog(false);
   };
 
-  const handleDescriptionCity = (updDescriptionCity: any) => {
+  const handleDescriptionCity = (updDescriptionCity: React.ChangeEvent<HTMLInputElement>) => {
     setDescriptionCity(updDescriptionCity.target.value);
   };
 

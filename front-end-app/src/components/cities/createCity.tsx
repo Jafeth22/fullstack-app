@@ -27,11 +27,11 @@ const CreateCity: FC<CreateCityProps> = ({ isDialogOpen, toggleDialog }) => {
   const [descriptionCity, setDescriptionCity] = useState<string>("");
   const [activeCity, setActiveCity] = useState<boolean>(true);
 
-  const handleCityName = (newCityName: any) => {
+  const handleCityName = (newCityName: React.ChangeEvent<HTMLInputElement>) => {
     setCityName(newCityName.target.value);
   };
 
-  const handleDescriptionCity = (newDescriptionCity: any) => {
+  const handleDescriptionCity = (newDescriptionCity: React.ChangeEvent<HTMLInputElement>) => {
     setDescriptionCity(newDescriptionCity.target.value);
   };
 
